@@ -22,7 +22,7 @@ services:
     depends_on:
       - postgres
     environment:
-      - CANONICAL_WEB_URL=http://review.test.netease.com/gerrit
+      - CANONICAL_WEB_URL=http://10.0.2.15/gerrit
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
@@ -32,7 +32,7 @@ services:
       - ./gerrit/cache:/var/gerrit/cache
       - ./gerrit/plugins:/var/gerrit/plugins
       - ./gerrit/logs:/var/gerrit/logs
-  #  entrypoint: java -jar /var/gerrit/bin/gerrit.war init -d /var/gerrit
+    # entrypoint: java -jar /var/gerrit/bin/gerrit.war init -d /var/gerrit
 
   postgres:
     image: postgres:9.6
@@ -60,10 +60,11 @@ services:
   #     - ./mysql/etc:/etc/mysql/conf.d
 
   jenkins:
-    image: jenkins/jenkins:lts
+    image: jenkins/jenkins
     environment:
       - JENKINS_OPTS="--prefix=/jenkins"
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
       - ./jenkins_home:/var/jenkins_home
+      
